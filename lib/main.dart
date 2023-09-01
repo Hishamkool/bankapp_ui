@@ -1,3 +1,4 @@
+import 'package:bankapp_ui/HelperWidgets/textfielddata.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,10 +14,6 @@ void main() {
 }
 
 class bankui_mainPage extends StatelessWidget {
-  const bankui_mainPage({
-    super.key,
-  });
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,19 +33,6 @@ class bankui_mainPage extends StatelessWidget {
             ),
             // expandedHeight: 150,
             floating: true,
-            // flexibleSpace: FlexibleSpaceBar(
-            //   title: TextField(
-            //     decoration: InputDecoration(
-            //         border: OutlineInputBorder(
-            //           borderRadius: BorderRadius.circular(20),
-            //         ),
-            //         filled: true,
-            //         fillColor: Colors.white,
-            //         labelText: 'Hellow buddy',
-            //         hintText: 'Search'),
-            //   ),
-            //   // background: Image.network('https://2.bp.blogspot.com/-RbZa_7TIrWc/VscVaZiJKrI/AAAAAAAACjo/mDxQU3CNzNE/w1200-h630-p-k-no-nu/collapsing-expanding-android-toolbar-appbar-with-background-image.gif', fit: BoxFit.cover),
-            // ),
             actions: [
               Padding(
                 padding: EdgeInsets.only(top: 8.0),
@@ -90,20 +74,20 @@ class bankui_mainPage extends StatelessWidget {
           SliverList(
               delegate: SliverChildListDelegate([
             Container(
-              margin: EdgeInsets.only(left: 50, right: 50, top: 30),
+              height: 750,
+              margin: EdgeInsets.only(left: 20, right: 20, top: 30),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(
                   20,
                 ),
                 color: Colors.white,
               ),
-              height: 500,
               child: DefaultTabController(
                 length: 3,
                 child: Column(
                   children: [
                     TabBar(
-                      tabs: [
+                      tabs: const [
                         Tab(
                           text: 'Edit Profile',
                         ),
@@ -113,20 +97,19 @@ class bankui_mainPage extends StatelessWidget {
                         Tab(
                           text: 'Security',
                         ),
-
                       ],
                       labelColor: Colors.blue[900],
                       unselectedLabelColor: Colors.grey,
-                      // indicatorColor: Colors.blue[900], //not working when indicator property is used 
+                      // indicatorColor: Colors.blue[900], //not working when indicator property is used
                       // indicatorSize: TabBarIndicatorSize.label ,
-                      indicator: UnderlineTabIndicator(
-                        borderSide: BorderSide(width: 3.0,color: Colors.blue),
+                      indicator: const UnderlineTabIndicator(
+                        borderSide: BorderSide(width: 3.0, color: Colors.blue),
                         insets: EdgeInsets.symmetric(horizontal: 20.0),
                       ),
                     ),
                     Expanded(
                       child: TabBarView(children: [
-                        tabOneContent(),
+                        IntrinsicHeight(child: tabOneContent()),
                         Center(
                           child: Text('Preferences page'),
                         ),
@@ -151,11 +134,50 @@ class bankui_mainPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  tabOneContent() {
-    return Center(
-      child: Container(
-        child: Text('hello'),
+class tabOneContent extends StatelessWidget {
+  List editProfileTitles = [
+    'Your Name',
+    'User Name',
+    'Email',
+    'Password',
+    'Date of Birth',
+  ];
+  List editProfileHintText = [
+    'Charlene Reed',
+    'Charlene Reed',
+    'charelenereed@gmail.com',
+    '*********',
+    '29/11/1998',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 25,
+          ),
+          Stack(
+            children: [
+              CircleAvatar(
+                radius: 80,
+                backgroundImage: NetworkImage(
+                    'https://d2v5dzhdg4zhx3.cloudfront.net/web-assets/images/storypages/short/linkedin-profile-picture-maker/dummy_image/thumb/004.webp'),
+              ),
+              Positioned(
+                  right: 0,
+                  bottom: 15,
+                  child: CircleAvatar(
+                    child: Icon(Icons.edit),
+                    backgroundColor: Colors.blue[900],
+                  )),
+            ],
+          ),
+          TextFieldData(),
+        ],
       ),
     );
   }
